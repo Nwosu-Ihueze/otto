@@ -1,10 +1,10 @@
-# AutoML Platform for Small Language Models
+# Otto
 
-This project is a complete, sophisticated AutoML platform for training and fine-tuning small language models (SLMs) based on a GPT-style architecture. It automates the entire pipeline from data processing to hyperparameter optimization and inference.
+This project is an end-to-end platform for training and fine-tuning small language models (SLMs) based on a GPT-style architecture. It automates the entire pipeline from data processing to hyperparameter optimization and inference.
 
 ## Features
 
-- **Automated Configuration**: Analyzes your dataset to generate a robust starting configuration.
+- **Automated Configuration**: Analyzes your dataset to generate a starting configuration.
 - **Resource-Aware Tuning**: Intelligently adjusts the hyperparameter search space to fit within your available GPU memory, preventing OOM errors.
 - **Efficient Data Handling**: Uses memory-mapped binary files (`.bin`) to handle datasets much larger than RAM, ensuring high I/O performance during training.
 - **Hyperparameter Optimization**: Leverages Optuna to efficiently search for the best model architecture and training parameters.
@@ -51,10 +51,10 @@ The platform is designed to be run from the command line. You need a CSV file wi
     ...
     ```
 
-2.  **Run the AutoML pipeline:**
+2.  **Run Otto:**
 
     ```bash
-    python cli.py --dataset ./my_stories.csv --output_dir ./automl_results
+    python cli.py --dataset ./my_stories.csv --output_dir ./otto_results
     ```
 
 ### **Command-Line Arguments**
@@ -62,7 +62,7 @@ The platform is designed to be run from the command line. You need a CSV file wi
 -   `--dataset`: (Required) Path to your training dataset (CSV format).
 -   `--target`: (Optional) The name of the text column in your CSV. Defaults to `text`.
 -   `--time_limit`: (Optional) The total time limit for hyperparameter optimization in seconds. Defaults to 3600 (1 hour).
--   `--output_dir`: (Optional) The directory where all results, checkpoints, and processed data will be saved. Defaults to `automl_results`.
+-   `--output_dir`: (Optional) The directory where all results, checkpoints, and processed data will be saved. Defaults to `otto_results`.
 -   `--n_trials`: (Optional) The number of hyperparameter optimization trials to run. Defaults to 20.
 
 After the run completes, the best model checkpoint and configuration will be saved in the specified output directory.
