@@ -1,0 +1,34 @@
+# configs/search_spaces.yaml
+# Defines the hyperparameter search space.
+
+model_params:
+  n_layer:
+    type: choice
+    values: [4, 6, 8, 12]
+  n_head:
+    type: choice
+    values: [4, 6, 8, 12]
+  n_embd:
+    type: choice
+    values: [256, 384, 512, 768]
+  dropout:
+    type: uniform
+    lower: 0.0
+    upper: 0.2
+
+trainer_params:
+  batch_size:
+    type: choice
+    values: [8, 16, 32]
+
+optimizer_params:
+  learning_rate:
+    type: loguniform
+    lower: 1.0e-5
+    upper: 6.0e-4
+
+scheduler_params:
+  min_lr:
+    type: loguniform
+    lower: 1.0e-6
+    upper: 6.0e-5
