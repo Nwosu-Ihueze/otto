@@ -266,15 +266,15 @@ If you use OTTO in your research or business applications, please cite:
   title={OTTO: Small Language Model Training Pipeline},
   author={[Rosemary Nwosu-Ihueze]},
   year={2025},
-  url={https://github.com/nwosu-ihueze/otto}
+  url={https://github.com/Nwosu-Ihueze/otto}
 }
 ```
 
 ## Support
 
 - **Issues**: Report bugs and feature requests via GitHub Issues
-- **Documentation**: See `docs/` directory for detailed guides
-- **Community**: [Add community links when available]
+<!-- - **Documentation**: See `docs/` directory for detailed guides
+- **Community**: [Add community links when available] -->
 
 ---
 
