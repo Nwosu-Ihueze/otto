@@ -1,0 +1,19 @@
+{
+  "train_losses": [],
+  "val_losses": [],
+  "best_val_loss": Infinity,
+  "config": {
+    "learning_rate": 0.0001,
+    "max_iters": 100,
+    "warmup_steps": 1000,
+    "batch_size": 16,
+    "block_size": 64,
+    "model_config": {
+      "n_layer": 4,
+      "n_head": 4,
+      "n_embd": 256,
+      "vocab_size": 50257,
+      "dropout": 0.1
+    }
+  }
+}

@@ -1,0 +1,33 @@
+from enum import Enum
+
+
+class Language(str, Enum):
+    """Enum of the programming languages."""
+
+    CPP = "cpp"
+    GO = "go"
+    JAVA = "java"
+    KOTLIN = "kotlin"
+    JS = "js"
+    TS = "ts"
+    PHP = "php"
+    PROTO = "proto"
+    PYTHON = "python"
+    RST = "rst"
+    RUBY = "ruby"
+    RUST = "rust"
+    SCALA = "scala"
+    SWIFT = "swift"
+    MARKDOWN = "markdown"
+    LATEX = "latex"
+    HTML = "html"
+    SOL = "sol"
+    CSHARP = "csharp"
+    COBOL = "cobol"
+    C = "c"
+    LUA = "lua"
+    PERL = "perl"
+    HASKELL = "haskell"
+    ELIXIR = "elixir"
+    POWERSHELL = "powershell"
+    VISUALBASIC6 = "visualbasic6"

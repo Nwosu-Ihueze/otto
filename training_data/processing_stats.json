@@ -1,0 +1,34 @@
+{
+  "total_documents": 1338,
+  "processed_documents": 1338,
+  "train_documents": 1204,
+  "val_documents": 134,
+  "text_files": {
+    "train_txt": "training_data/train.txt",
+    "val_txt": "training_data/val.txt"
+  },
+  "binary_files": {
+    "train_bin": "training_data/train.bin",
+    "val_bin": "training_data/val.bin"
+  },
+  "token_stats": {
+    "train": {
+      "total_tokens": 33528,
+      "num_documents": 1204,
+      "avg_tokens_per_doc": 27.84717607973422,
+      "min_tokens": 24,
+      "max_tokens": 30,
+      "file_size_mb": 0.0639495849609375
+    },
+    "val": {
+      "total_tokens": 3716,
+      "num_documents": 134,
+      "avg_tokens_per_doc": 27.73134328358209,
+      "min_tokens": 24,
+      "max_tokens": 29,
+      "file_size_mb": 0.00708770751953125
+    }
+  },
+  "vocab_size": 50257,
+  "output_dir": "training_data"
+}
