@@ -12,3 +12,5 @@ model_outputs/
 training_data/
 
 upload_pipeline.py
+src/tests/test_upload/automotive_inbound.zip
+src/tests/test_upload/medicare_inbound.zip
