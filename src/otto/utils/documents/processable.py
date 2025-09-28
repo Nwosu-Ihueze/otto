@@ -143,6 +143,10 @@ class ProcessedFileSet:
             
             # Process each extracted file
             for extracted_file in extracted_files:
+                if extracted_file.startswith('__MACOSX/') or extracted_file.startswith('._'):
+                    logger.debug(f"Skipping macOS metadata file: {extracted_file}")
+                    continue
+                
                 full_path = os.path.join(extract_dir, extracted_file)
                 
                 if not os.path.exists(full_path):

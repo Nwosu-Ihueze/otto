@@ -1,8 +1,8 @@
 {
-  "total_documents": 1338,
-  "processed_documents": 1338,
-  "train_documents": 1204,
-  "val_documents": 134,
+  "total_documents": 8093073,
+  "processed_documents": 8093029,
+  "train_documents": 7283726,
+  "val_documents": 809303,
   "text_files": {
     "train_txt": "training_data/train.txt",
     "val_txt": "training_data/val.txt"
@@ -13,20 +13,20 @@
   },
   "token_stats": {
     "train": {
-      "total_tokens": 33528,
-      "num_documents": 1204,
-      "avg_tokens_per_doc": 27.84717607973422,
-      "min_tokens": 24,
-      "max_tokens": 30,
-      "file_size_mb": 0.0639495849609375
+      "total_tokens": 262344320,
+      "num_documents": 7283726,
+      "avg_tokens_per_doc": 36.01787326980724,
+      "min_tokens": 30,
+      "max_tokens": 50,
+      "file_size_mb": 500.382080078125
     },
     "val": {
-      "total_tokens": 3716,
-      "num_documents": 134,
-      "avg_tokens_per_doc": 27.73134328358209,
-      "min_tokens": 24,
-      "max_tokens": 29,
-      "file_size_mb": 0.00708770751953125
+      "total_tokens": 29149465,
+      "num_documents": 809303,
+      "avg_tokens_per_doc": 36.01798708271191,
+      "min_tokens": 30,
+      "max_tokens": 50,
+      "file_size_mb": 55.59819221496582
     }
   },
   "vocab_size": 50257,

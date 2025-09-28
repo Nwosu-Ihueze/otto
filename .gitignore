@@ -10,3 +10,5 @@ wheels/
 .venv
 model_outputs/
 training_data/
+
+upload_pipeline.py
