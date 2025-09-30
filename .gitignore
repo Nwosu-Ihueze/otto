@@ -7,11 +7,18 @@ wheels/
 *.egg-info
 
 # Virtual environments
+.DS_Store
+*.bin
+*.pt
+*.pth
+uploads/
+*.pyc
 .venv
-model_outputs/
-training_data/
+training_data/*.bin
+training_data/*.txt
+model_outputs/*.pt
+model_outputs/*.pth
 
-upload_pipeline.py
 src/tests/test_upload/automotive_inbound.zip
 src/tests/test_upload/medicare_inbound.zip
 src/tests/test_upload/
