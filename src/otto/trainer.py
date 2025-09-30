@@ -33,10 +33,10 @@ class SLMTrainer:
         model_config: GPTConfig = None,
         output_dir: str = "model_outputs",
 
-        learning_rate: float = 1e-4,
+        learning_rate: float = 3e-4,
         max_iters: int = 20000,
         warmup_steps: int = 1000,
-        min_lr: float = 5e-4,
+        min_lr: float = 1e-4,
         eval_iters: int = 500,
         batch_size: int = 32,
         block_size: int = 128,
@@ -204,7 +204,7 @@ class SLMTrainer:
         )
         
 
-        self.scaler = torch.cuda.amp.GradScaler(enabled=(self.dtype == 'float16'))
+        self.scaler = torch.amp.GradScaler(enabled=(self.dtype == 'float16'))
         
         logger.info("Training setup completed")
     
@@ -213,8 +213,8 @@ class SLMTrainer:
         checkpoint = {
             'epoch': epoch,
             'model_state_dict': self.model.state_dict(),
-            'optimizer_state_dict': self.optimizer.state_dict(),
             'scheduler_state_dict': self.scheduler.state_dict(),
+            'optimizer_state_dict': self.optimizer.state_dict(),
             'scaler_state_dict': self.scaler.state_dict(),
             'model_config': self.model_config,
             'train_loss': self.train_loss_list,
@@ -332,8 +332,8 @@ class SLMTrainer:
         
         if 'optimizer_state_dict' in checkpoint:
             self.setup_training() 
-            self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
             self.scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
+            self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
             self.scaler.load_state_dict(checkpoint['scaler_state_dict'])
         
         self.train_loss_list = checkpoint.get('train_loss', [])

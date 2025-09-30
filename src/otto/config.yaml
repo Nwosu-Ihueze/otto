@@ -1,0 +1,40 @@
+# OTTO Training Configuration
+
+# Model Architecture
+model:
+  n_layer: 6
+  n_head: 6
+  n_embd: 768
+  dropout: 0.1
+  bias: true
+  block_size: 128
+  vocab_size: 50257  # Auto-detected from tokenizer
+
+# Training Parameters
+training:
+  max_iters: 2000
+  batch_size: 16
+  learning_rate: 0.0001
+  warmup_steps: 1000
+  min_lr: 0.00005
+  eval_iters: 500
+  gradient_accumulation_steps: 32
+
+# Data Processing
+data:
+  train_split: 0.9
+  min_doc_length: 50
+  max_doc_length: null
+  tokenizer: "gpt2"
+
+# Paths
+paths:
+  upload_dir: null  # Uses default if null
+  training_data_dir: "training_data"
+  model_output_dir: "model_outputs"
+
+# System
+system:
+  max_file_size: 524288000  # 500MB
+  device: null  # Auto-detect
+  dtype: null   # Auto-detect
