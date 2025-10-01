@@ -12,23 +12,23 @@ class ModelConfig:
     """Model architecture configuration."""
     n_layer: int = 6
     n_head: int = 6
-    n_embd: int = 384
+    n_embd: int = 768
     dropout: float = 0.1
     bias: bool = True
-    block_size: int = 128
+    block_size: int = 512
     vocab_size: int = 50257
 
 
 @dataclass
 class TrainingConfig:
     """Training parameters configuration."""
-    max_iters: int = 2000
-    batch_size: int = 16
-    learning_rate: float = 0.0001
+    max_iters: int = 10000
+    batch_size: int = 64
+    learning_rate: float = 0.00025
     warmup_steps: int = 1000
-    min_lr: float = 0.00005
-    eval_iters: int = 500
-    gradient_accumulation_steps: int = 32
+    min_lr: float = 0.0
+    eval_iters: int = 1000
+    gradient_accumulation_steps: int = 1
 
 
 @dataclass

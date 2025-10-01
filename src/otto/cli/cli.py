@@ -13,10 +13,10 @@ from otto.upload_file import FileUploadManager
 
 logger = logging.getLogger(__name__)
 
-
 def complete_pipeline_cli(
     file_path: str,
     config: OTTOConfig,
+    stream_processing: bool = True,
 ) -> None:
     """
     Complete pipeline: Upload -> Process -> Preprocess -> Train
@@ -24,6 +24,7 @@ def complete_pipeline_cli(
     Args:
         file_path: Path to file to upload and train on
         config: OTTOConfig instance with all settings
+        stream_processing: If True, stream documents to avoid memory issues
     """
     print("=" * 60)
     print("OTTO SLM COMPLETE PIPELINE")
@@ -48,20 +49,41 @@ def complete_pipeline_cli(
         print(f"  ✓ File size: {metadata.file_size:,} bytes")
         print(f"  ✓ MIME type: {metadata.mime_type}")
         
-        print(f"Processing uploaded file...")
-        result = manager.process_uploaded_file(metadata.filename)
-        
-        if result.status.value == 'completed':
-            print(f"  ✓ Processing completed!")
-            print(f"  ✓ Documents extracted: {len(result.documents)}")
-            print(f"  ✓ Files processed: {result.processed_files_count}")
+
+        if stream_processing:
+            print(f"Processing uploaded file (streaming mode)...")
+            documents = []
+            doc_count = 0
             
-            if not result.documents:
+            for doc in manager.process_uploaded_file_lazy(metadata.filename):
+                documents.append(doc)
+                doc_count += 1
+                if doc_count % 100000 == 0:
+                    print(f"  Loaded {doc_count:,} documents...")
+            
+            print(f"  ✓ Processing completed!")
+            print(f"  ✓ Documents extracted: {len(documents)}")
+            
+            if not documents:
                 print("No documents extracted. Cannot proceed with training.")
                 return
         else:
-            print(f"Processing failed: {'; '.join(result.errors)}")
-            return
+            print(f"Processing uploaded file...")
+            result = manager.process_uploaded_file(metadata.filename)
+            
+            if result.status.value == 'completed':
+                print(f"  ✓ Processing completed!")
+                print(f"  ✓ Documents extracted: {len(result.documents)}")
+                print(f"  ✓ Files processed: {result.processed_files_count}")
+                
+                if not result.documents:
+                    print("No documents extracted. Cannot proceed with training.")
+                    return
+                
+                documents = result.documents
+            else:
+                print(f"Processing failed: {'; '.join(result.errors)}")
+                return
             
     except Exception as e:
         print(f"Upload/Processing failed: {e}")
@@ -80,12 +102,14 @@ def complete_pipeline_cli(
             max_doc_length=config.data.max_doc_length
         )
         
-        print(f"Preprocessing {len(result.documents)} documents...")
+        print(f"Preprocessing {len(documents)} documents...")
         preprocessing_stats = doc_processor.process_documents(
-            documents=result.documents,
+            documents=documents,
             generate_binary=True,
-            save_text=True
+            save_text=False #Switch to True if you want to save text files
         )
+
+        del documents
         
         print(f"  ✓ Preprocessing completed!")
         print(f"  ✓ Total documents: {preprocessing_stats['total_documents']}")
@@ -110,7 +134,7 @@ def complete_pipeline_cli(
     except Exception as e:
         print(f"Preprocessing failed: {e}")
         raise
-    
+
     # Step 3: Training
     print(f"\nSTEP 3: TRAINING SMALL LANGUAGE MODEL")
     print("-" * 40)
@@ -185,8 +209,8 @@ def complete_pipeline_cli(
                 print(f"Generating...")
                 generated = trainer.generate_text(
                     prompt=prompt, 
-                    max_new_tokens=50, 
-                    temperature=0.8,
+                    max_new_tokens=100, 
+                    temperature=0.6,
                     top_k=40
                 )
                 print(f"\n{generated}\n")
@@ -205,6 +229,7 @@ def complete_pipeline_cli(
     print(f"   Model outputs: {config.paths.model_output_dir}")
     print("=" * 60)
 
+
 def cli():
     """Command line interface."""
     parser = argparse.ArgumentParser(
@@ -214,6 +239,8 @@ def cli():
     
     parser.add_argument("file_path", help="Path to the file to upload and train on")
     parser.add_argument("--config", default="config.yaml", help="Path to config file")
+    parser.add_argument("--no-stream", action="store_true", 
+                       help="Disable streaming mode (loads all docs at once, may cause OOM)")
     
     parser.add_argument("--max-iters", type=int, help="Override max training iterations")
     parser.add_argument("--batch-size", type=int, help="Override batch size")
@@ -239,8 +266,7 @@ def cli():
         n_embd=args.n_embd
     )
     
-    complete_pipeline_cli(args.file_path, config)
-
+    complete_pipeline_cli(args.file_path, config, stream_processing=not args.no_stream)
 
 if __name__ == "__main__":
     cli()

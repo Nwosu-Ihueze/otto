@@ -7,18 +7,18 @@ model:
   n_embd: 768
   dropout: 0.1
   bias: true
-  block_size: 128
-  vocab_size: 50257  # Auto-detected from tokenizer
+  block_size: 4096
+  vocab_size: null  # Auto-detected from tokenizer
 
 # Training Parameters
 training:
-  max_iters: 2000
-  batch_size: 16
-  learning_rate: 0.0001
-  warmup_steps: 1000
-  min_lr: 0.00005
+  max_iters: 20000
+  batch_size: 1
+  learning_rate: 0.0003
+  warmup_steps: 2000
+  min_lr: 0.00001
   eval_iters: 500
-  gradient_accumulation_steps: 32
+  gradient_accumulation_steps: 64
 
 # Data Processing
 data:
